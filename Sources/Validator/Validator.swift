@@ -14,6 +14,7 @@ public protocol Validator {
 }
 
 // MARK: - AnyValidator
+@available(swift, deprecated: 5.6, message: "Recommend using an existential type like `any Validator`.")
 public struct AnyValidator<Input>: Validator {
     // MARK: - Property
     private let _validate: (Input) -> Bool
