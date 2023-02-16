@@ -5,83 +5,59 @@
 //  Created by jsilver on 2022/01/25.
 //
 
-import Quick
-import Nimble
+import XCTest
 @testable import Validator
 
-final class ValidatorTests: QuickSpec {
-    override func spec() {
-        describe("EmailValiator로") {
-            let validator = EmailValidator()
-            
-            context("일반적인 domain들의 e-mail 문자열을 검증하면") {
-                let emails = [
-                    "chalttoek@gmail.com",
-                    "chalttoek@naver.com",
-                    "chalttoek@daum.net",
-                    "chalttoek@nate.com"
-                ]
-                
-                it("true를 반환한다") {
-                    // Given
-                    
-                    // When
-                    let result = emails.allSatisfy { validator.validate($0) }
-                    
-                    // Then
-                    expect(result).to(beTrue())
-                }
-            }
-            
-            context("일반적인 TLD들의 e-mail 문자열을 검증하면") {
-                let emails = [
-                    "chaltteok@a.com",
-                    "chaltteok@a.net",
-                    "chaltteok@a.org",
-                    "chaltteok@a.io",
-                    "chaltteok@a.me",
-                    "chaltteok@a.co.kr",
-                    "chaltteok@a.go"
-                ]
-                
-                it("true를 반환한다") {
-                    // Given
-                    
-                    // When
-                    let result = emails.allSatisfy { validator.validate($0) }
-                    
-                    // Then
-                    expect(result).to(beTrue())
-                }
-            }
-            
-            context("특수문자로 시작하는 도메인의 e-mail 문자열을 검증하면") {
-                let email = "chalttoek@_gmail.com"
-                
-                it("false를 반환한다") {
-                    // Given
-                    
-                    // When
-                    let result = validator.validate(email)
-                    
-                    // Then
-                    expect(result).to(beFalse())
-                }
-            }
-            
-            context("특수문자로 시작하는 이름의 e-mail 문자열을 검증하면") {
-                let email = "_chalttoek@gmail.com"
-                
-                it("false를 반환한다") {
-                    // Given
-                    
-                    // When
-                    let result = validator.validate(email)
-                    
-                    // Then
-                    expect(result).to(beFalse())
-                }
-            }
-        }
+final class ValidatorTests: XCTestCase {
+    // MARK: - Property
+    
+    // MARK: - Lifecycle
+    
+    // MARK: - Test
+    func test_that_return_true_when_validate_right_email_formats() {
+        // Given
+        let validator = EmailValidator()
+        let emails = [
+            "chalttoek@gmail.com",
+            "chalttoek@naver.com",
+            "chalttoek@daum.net",
+            "chalttoek@nate.com",
+            "chaltteok@a.com",
+            "chaltteok@a.net",
+            "chaltteok@a.org",
+            "chaltteok@a.io",
+            "chaltteok@a.me",
+            "chaltteok@a.co.kr",
+            "chaltteok@a.go",
+            "_chalttoek@gmail.com",
+            "prettyandsimple@example.com",
+            "very.common@example.com",
+            "disposable.style.email.with+symbol@example.com",
+            "other.email-with-dash@example.com",
+            "x@example.com",
+            "example-indeed@strange-example.com",
+            "#!$%&'*+-/=?^_`{}|~@example.org",
+            "example@s.solutions",
+        ]
+        
+        // When
+        
+        // Then
+        emails.forEach { XCTAssertTrue(validator.validate($0), $0) }
+    }
+    
+    
+    func test_that_return_true_when_validate_wrong_email_formats() {
+        // Given
+        let validator = EmailValidator()
+        let emails = [
+            "chalttoek@_gmail.com"
+        ]
+        
+        // When
+        let result = emails.allSatisfy { !validator.validate($0) }
+        
+        // Then
+        XCTAssertTrue(result)
     }
 }
