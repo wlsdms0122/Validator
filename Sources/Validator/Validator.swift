@@ -7,14 +7,14 @@
 
 import Foundation
 
-public protocol Validator {
+public protocol Validator<Input> {
     associatedtype Input
     
     func validate(_ input: Input) -> Bool
 }
 
 // MARK: - AnyValidator
-@available(swift, deprecated: 5.6, message: "Recommend using an existential type like `any Validator`.")
+@available(swift, deprecated: 5.7, message: "Recommend using an constrained existential type like `any Validator<Input>`.")
 public struct AnyValidator<Input>: Validator {
     // MARK: - Property
     private let _validate: (Input) -> Bool
