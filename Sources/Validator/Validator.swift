@@ -14,7 +14,6 @@ public protocol Validator<Input> {
 }
 
 // MARK: - AnyValidator
-@available(swift, deprecated: 5.7, message: "Recommend using an constrained existential type like `any Validator<Input>`.")
 public struct AnyValidator<Input>: Validator {
     // MARK: - Property
     private let _validate: (Input) -> Bool
@@ -33,6 +32,12 @@ public struct AnyValidator<Input>: Validator {
 }
 
 // MARK: - Extensions
+public extension Validator {
+    func eraseToAnyValidator() -> AnyValidator<Input> {
+        .init(self)
+    }
+}
+
 public extension Validator where Self == EmailValidator {
     static var email: Self { EmailValidator() }
 }
