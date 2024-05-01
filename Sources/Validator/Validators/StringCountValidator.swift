@@ -20,3 +20,9 @@ public struct StringCountValidator: Validator {
         compare(input.count, count)
     }
 }
+
+public extension Validator {
+    static func count(_ count: Int, _ compare: @escaping (Int, Int) -> Bool) -> Self where Self == StringCountValidator {
+        StringCountValidator(count: count, compare)
+    }
+}

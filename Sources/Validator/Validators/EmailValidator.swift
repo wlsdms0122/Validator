@@ -23,3 +23,7 @@ public struct EmailValidator: Validator {
     
     // MARK: - Private
 }
+
+public extension Validator where Self == EmailValidator {
+    static var email: Self { EmailValidator() }
+}
