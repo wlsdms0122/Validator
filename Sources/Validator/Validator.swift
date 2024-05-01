@@ -17,4 +17,8 @@ public extension Validator {
     func eraseToAnyValidator() -> AnyValidator<Input> {
         AnyValidator(self)
     }
+    
+    func chain<V: Validator>(_ validator: V) -> some Validator<Input> where V.Input == Input {
+        Validators._ChainValidator(self, validator)
+    }
 }
