@@ -60,4 +60,26 @@ final class ValidatorTests: XCTestCase {
         // Then
         XCTAssertTrue(result)
     }
+    
+    func test_that_return_true_when_validate_right_range() {
+        // Given
+        let validator = RangeValidator<Int>(range: 10..<20)
+        
+        // When
+        let result = validator.validate(15)
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    func test_that_return_false_when_validate_wrong_range() {
+        // Given
+        let validator = RangeValidator<Int>(range: 10..<20)
+        
+        // When
+        let result = validator.validate(5)
+        
+        // Then
+        XCTAssertFalse(result)
+    }
 }
