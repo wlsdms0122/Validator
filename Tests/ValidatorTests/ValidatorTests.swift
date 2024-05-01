@@ -82,4 +82,18 @@ final class ValidatorTests: XCTestCase {
         // Then
         XCTAssertFalse(result)
     }
+    
+    func test_that_return_true_when_chained_validators_all_validated() {
+        // Given
+        let validator: some Validator<Int> = .range(10..<20)
+            .chain(.some { $0.isMultiple(of: 2) })
+        
+        print(type(of: validator))
+        
+        // When
+        let result = validator.validate(10)
+        
+        // Then
+        XCTAssertTrue(result)
+    }
 }
