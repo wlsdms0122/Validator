@@ -23,3 +23,9 @@ public struct RangeValidator<Value: Comparable>: Validator {
     
     // MARK: - Private
 }
+
+public extension Validator {
+    static func range<Value: Comparable>(_ range: Range<Value>) -> Self where Self == RangeValidator<Value> {
+        RangeValidator<Value>(range: range)
+    }
+}

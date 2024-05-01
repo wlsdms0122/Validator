@@ -23,3 +23,7 @@ public struct PhoneNumberValidator: Validator {
     
     // MARK: - Private
 }
+
+public extension Validator where Self == PhoneNumberValidator {
+    static var phoneNumber: Self { PhoneNumberValidator() }
+}

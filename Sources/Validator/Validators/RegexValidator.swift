@@ -23,3 +23,9 @@ public struct RegexValidator: Validator {
     
     // MARK: - Private
 }
+
+public extension Validator {
+    static func regex(_ pattern: String) -> Self where Self == RegexValidator {
+        RegexValidator(regex: pattern)
+    }
+}
