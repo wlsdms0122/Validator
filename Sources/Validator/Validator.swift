@@ -46,10 +46,8 @@ public extension Validator where Self == PhoneNumberValidator {
     static var phoneNumber: Self { PhoneNumberValidator() }
 }
 
-public extension Validator where Self == RegexValidator {
-    static func regex(_ pattern: String) -> Self { RegexValidator(regex: pattern) }
-}
-
-public extension Validator where Self == StringCountValidator {
-    static func count(_ count: Int, _ compare: @escaping (Int, Int) -> Bool) -> Self { StringCountValidator(count: count, compare) }
+public extension Validator {
+    static func regex(_ pattern: String) -> Self where Self == RegexValidator { RegexValidator(regex: pattern) }
+    static func count(_ count: Int, _ compare: @escaping (Int, Int) -> Bool) -> Self where Self == StringCountValidator { StringCountValidator(count: count, compare) }
+    static func range<Value: Comparable>(_ range: Range<Value>) -> Self where Self == RangeValidator<Value> { RangeValidator<Value>(range: range) }
 }
