@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "Validator",
+    platforms: [
+        .iOS(.v13),
+        .macOS(.v10_15)
+    ],
     products: [
         .library(
             name: "Validator",
