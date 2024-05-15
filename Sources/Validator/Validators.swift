@@ -8,7 +8,7 @@
 import Foundation
 
 enum Validators {
-    struct _ChainValidator<A: Validator, B: Validator>: Validator where A.Input == B.Input {
+    struct _CombineValidator<A: Validator, B: Validator>: Validator where A.Input == B.Input {
         typealias Input = A.Input
         
         // MARK: - Property
