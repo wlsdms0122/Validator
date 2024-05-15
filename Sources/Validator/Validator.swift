@@ -18,7 +18,7 @@ public extension Validator {
         AnyValidator(self)
     }
     
-    func chain<V: Validator>(_ validator: V) -> some Validator<Input> where V.Input == Input {
-        Validators._ChainValidator(self, validator)
+    func combine<V: Validator>(_ validator: V) -> some Validator<Input> where V.Input == Input {
+        Validators._CombineValidator(self, validator)
     }
 }
